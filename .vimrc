@@ -13,7 +13,6 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug  'tomasr/molokai'
 Plug 'easymotion/vim-easymotion'
-
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'morhetz/gruvbox'
@@ -23,6 +22,7 @@ Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 " Initialize plugin system
 call plug#end()
 
+execute pathogen#infect()
 inoremap jk <ESC>
 nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
@@ -47,6 +47,17 @@ let g:NERDTreeGitStatusWithFlags = 1
     "\ }                         
 
 set encoding=UTF-8
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
+  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+  \ }
+
+set wildignore+=*/node_modules/*,*.so,*.swp,*.zip
+let g:ctrlp_working_path_mode = 'ra'
 
 
 let g:NERDTreeIgnore = ['^node_modules$']
@@ -237,3 +248,42 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+
+
+nnoremap <Left>  :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up>    :echoe "Use k"<CR>
+nnoremap <Down>  :echoe "Use j"<CR>
+" ...and in insert mode
+inoremap <Left>  <ESC>:echoe "Use h"<CR>
+inoremap <Right> <ESC>:echoe "Use l"<CR>
+inoremap <Up>    <ESC>:echoe "Use k"<CR>
+inoremap <Down>  <ESC>:echoe "Use j"<CR>
+
+
+nmap <leader>a <CR>:Ack "" <Left>
+nmap <leader>A <CR>:Ack <C-r><C-w><CR>
+
+
+map <Leader>j  <Plug>(easymotion-prefix)
+
+
+
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap <Up>  <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+"nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
